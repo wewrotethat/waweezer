@@ -3,6 +3,8 @@ import 'dart:convert';
 class Song {
   final String id;
   final String album;
+  final String albumArtURL;
+  final String artist;
   final String genre;
   final String owner;
   final String spotifyLink;
@@ -11,6 +13,8 @@ class Song {
   Song({
     this.id,
     this.album,
+    this.albumArtURL,
+    this.artist,
     this.genre,
     this.owner,
     this.spotifyLink,
@@ -21,6 +25,8 @@ class Song {
   Song copyWith({
     String id,
     String album,
+    String albumArtURL,
+    String artist,
     String genre,
     String owner,
     String spotifyLink,
@@ -30,6 +36,8 @@ class Song {
     return Song(
       id: id ?? this.id,
       album: album ?? this.album,
+      albumArtURL: albumArtURL ?? this.albumArtURL,
+      artist: artist ?? this.artist,
       genre: genre ?? this.genre,
       owner: owner ?? this.owner,
       spotifyLink: spotifyLink ?? this.spotifyLink,
@@ -42,6 +50,8 @@ class Song {
     return {
       'id': id,
       'album': album,
+      'albumArtURL': albumArtURL,
+      'artist': artist,
       'genre': genre,
       'owner': owner,
       'spotifyLink': spotifyLink,
@@ -56,6 +66,8 @@ class Song {
     return Song(
       id: map['id'],
       album: map['album'],
+      albumArtURL: map['albumArtURL'],
+      artist: map['artist'],
       genre: map['genre'],
       owner: map['owner'],
       spotifyLink: map['spotifyLink'],
@@ -70,7 +82,7 @@ class Song {
 
   @override
   String toString() {
-    return 'Song(id: $id, album: $album, genre: $genre, owner: $owner, spotifyLink: $spotifyLink, title: $title, youtubeLink: $youtubeLink)';
+    return 'Song(id: $id, album: $album, albumArtURL: $albumArtURL, artist: $artist, genre: $genre, owner: $owner, spotifyLink: $spotifyLink, title: $title, youtubeLink: $youtubeLink)';
   }
 
   @override
@@ -80,6 +92,8 @@ class Song {
     return o is Song &&
         o.id == id &&
         o.album == album &&
+        o.albumArtURL == albumArtURL &&
+        o.artist == artist &&
         o.genre == genre &&
         o.owner == owner &&
         o.spotifyLink == spotifyLink &&
@@ -91,6 +105,8 @@ class Song {
   int get hashCode {
     return id.hashCode ^
         album.hashCode ^
+        albumArtURL.hashCode ^
+        artist.hashCode ^
         genre.hashCode ^
         owner.hashCode ^
         spotifyLink.hashCode ^

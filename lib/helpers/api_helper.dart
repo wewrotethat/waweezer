@@ -40,18 +40,15 @@ class ApiHelpers {
   }
 
   dynamic _returnResponse(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        return response;
-      case 400:
-        throw BadRequestException(response.body.toString());
-      case 401:
-      case 403:
-        throw UnauthorizedException(response.body.toString());
-      case 500:
-      default:
-        throw FetchDataException(
-            'Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
+    if (200 <= response.statusCode && response.statusCode < 300) {
+      return response;
+    } else if (response.statusCode == 400) {
+      throw BadRequestException(response.body.toString());
+    } else if (response.statusCode == 401 || response.statusCode == 403) {
+      throw UnauthorizedException(response.body.toString());
+    } else {
+      throw FetchDataException(
+          'Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
 }

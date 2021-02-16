@@ -9,12 +9,16 @@ class Playlist {
   final String id;
   final String name;
   final String owner;
+  final String description;
+  final int numberOfSaves;
   final List<Song> songs;
   final List<String> tags;
   Playlist({
     this.id,
     this.name,
     this.owner,
+    this.description,
+    this.numberOfSaves,
     this.songs,
     this.tags,
   });
@@ -23,6 +27,7 @@ class Playlist {
     String id,
     String name,
     String owner,
+    String description,
     List<Song> songs,
     List<String> tags,
   }) {
@@ -30,6 +35,7 @@ class Playlist {
       id: id ?? this.id,
       name: name ?? this.name,
       owner: owner ?? this.owner,
+      description: description ?? this.description,
       songs: songs ?? this.songs,
       tags: tags ?? this.tags,
     );
@@ -40,6 +46,7 @@ class Playlist {
       'id': id,
       'name': name,
       'owner': owner,
+      'description': description,
       'songs': songs?.map((x) => x?.toMap())?.toList(),
       'tags': tags,
     };
@@ -52,6 +59,7 @@ class Playlist {
       id: map['id'],
       name: map['name'],
       owner: map['owner'],
+      description: map['description'],
       songs: List<Song>.from(map['songs']?.map((x) => Song.fromMap(x))),
       tags: List<String>.from(map['tags']),
     );
@@ -64,7 +72,7 @@ class Playlist {
 
   @override
   String toString() {
-    return 'Playlist(id: $id, name: $name, owner: $owner, songs: $songs, tags: $tags)';
+    return 'Playlist(id: $id, name: $name, owner: $owner, description: $description, songs: $songs, tags: $tags)';
   }
 
   @override
@@ -75,6 +83,7 @@ class Playlist {
         o.id == id &&
         o.name == name &&
         o.owner == owner &&
+        o.description == description &&
         listEquals(o.songs, songs) &&
         listEquals(o.tags, tags);
   }
@@ -84,6 +93,7 @@ class Playlist {
     return id.hashCode ^
         name.hashCode ^
         owner.hashCode ^
+        description.hashCode ^
         songs.hashCode ^
         tags.hashCode;
   }
