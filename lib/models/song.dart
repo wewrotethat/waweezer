@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class Song {
   final String id;
   final String album;
@@ -12,14 +14,14 @@ class Song {
   final String youtubeLink;
   Song({
     this.id,
-    this.album,
-    this.albumArtURL,
-    this.artist,
-    this.genre,
-    this.owner,
-    this.spotifyLink,
-    this.title,
-    this.youtubeLink,
+    @required this.album,
+    @required this.albumArtURL,
+    @required this.artist,
+    @required this.genre,
+    @required this.owner,
+    @required this.spotifyLink,
+    @required this.title,
+    @required this.youtubeLink,
   });
 
   Song copyWith({
@@ -48,7 +50,6 @@ class Song {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'album': album,
       'albumArtURL': albumArtURL,
       'artist': artist,

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:waweezer_mobile/resources/constants.dart';
 
 class HomeBottomNavBar extends StatelessWidget {
-  const HomeBottomNavBar({
+  final TabController controller;
+  final Function(int) onTabChanged;
+  HomeBottomNavBar({
     Key key,
-    @required TabController controller,
-  })  : _controller = controller,
-        super(key: key);
-
-  final TabController _controller;
+    @required this.controller,
+    @required this.onTabChanged,
+  }) : super(key: key) {
+    assert(controller != null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class HomeBottomNavBar extends StatelessWidget {
             icon: Icon(Icons.person),
           )
         ],
-        controller: _controller,
+        controller: controller,
         labelStyle: TextStyle(fontSize: 10),
         labelColor: primaryColor,
         unselectedLabelColor: Colors.grey,
@@ -40,6 +42,9 @@ class HomeBottomNavBar extends StatelessWidget {
           insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 45.0),
           borderSide: BorderSide(color: primaryColor, width: 3),
         ),
+        onTap: (value) {
+          onTabChanged(value);
+        },
       ),
     );
   }

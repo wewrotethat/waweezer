@@ -28,6 +28,7 @@ class Playlist {
     String name,
     String owner,
     String description,
+    int numberOfSaves,
     List<Song> songs,
     List<String> tags,
   }) {
@@ -36,6 +37,7 @@ class Playlist {
       name: name ?? this.name,
       owner: owner ?? this.owner,
       description: description ?? this.description,
+      numberOfSaves: numberOfSaves ?? this.numberOfSaves,
       songs: songs ?? this.songs,
       tags: tags ?? this.tags,
     );
@@ -43,10 +45,10 @@ class Playlist {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'owner': owner,
       'description': description,
+      'numberOfSaves': numberOfSaves,
       'songs': songs?.map((x) => x?.toMap())?.toList(),
       'tags': tags,
     };
@@ -60,6 +62,7 @@ class Playlist {
       name: map['name'],
       owner: map['owner'],
       description: map['description'],
+      numberOfSaves: map['numberOfSaves'],
       songs: List<Song>.from(map['songs']?.map((x) => Song.fromMap(x))),
       tags: List<String>.from(map['tags']),
     );
@@ -72,7 +75,7 @@ class Playlist {
 
   @override
   String toString() {
-    return 'Playlist(id: $id, name: $name, owner: $owner, description: $description, songs: $songs, tags: $tags)';
+    return 'Playlist(id: $id, name: $name, owner: $owner, description: $description, numberOfSaves: $numberOfSaves, songs: $songs, tags: $tags)';
   }
 
   @override
@@ -84,6 +87,7 @@ class Playlist {
         o.name == name &&
         o.owner == owner &&
         o.description == description &&
+        o.numberOfSaves == numberOfSaves &&
         listEquals(o.songs, songs) &&
         listEquals(o.tags, tags);
   }
@@ -94,6 +98,7 @@ class Playlist {
         name.hashCode ^
         owner.hashCode ^
         description.hashCode ^
+        numberOfSaves.hashCode ^
         songs.hashCode ^
         tags.hashCode;
   }
