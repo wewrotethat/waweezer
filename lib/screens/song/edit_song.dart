@@ -14,23 +14,16 @@ class EditSong extends StatefulWidget {
 }
 
 class _EditSongState extends State<EditSong> {
-  TextEditingController titleController;
-  TextEditingController albumArtURLController;
-  TextEditingController albumNameController;
-  TextEditingController artistNameController;
-  TextEditingController genreController;
-  TextEditingController youtubeLinkController;
-  TextEditingController spotifyLinkController;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController albumArtURLController = TextEditingController();
+  TextEditingController albumNameController = TextEditingController();
+  TextEditingController artistNameController = TextEditingController();
+  TextEditingController genreController = TextEditingController();
+  TextEditingController youtubeLinkController = TextEditingController();
+  TextEditingController spotifyLinkController = TextEditingController();
 
   @override
   void initState() {
-    titleController = TextEditingController();
-    albumArtURLController = TextEditingController();
-    albumNameController = TextEditingController();
-    artistNameController = TextEditingController();
-    genreController = TextEditingController();
-    youtubeLinkController = TextEditingController();
-    spotifyLinkController = TextEditingController();
     //set inital form values
     titleController.text = widget.songToBeEdited.title;
     albumArtURLController.text = widget.songToBeEdited.albumArtURL;

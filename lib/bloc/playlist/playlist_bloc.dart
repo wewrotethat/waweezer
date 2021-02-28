@@ -53,7 +53,7 @@ class PlaylistBloc extends Bloc<PlaylistEvent, PlaylistState> {
         await playlistRepository.deletePlaylist(event.playlistId);
         List<Playlist> playlists = await playlistRepository.readPlaylists();
         yield MultiplePlaylistsOperationSuccess(playlists);
-        ;
+        
       } catch (e) {
         yield PlaylistOperationFailed(e.toString());
       }

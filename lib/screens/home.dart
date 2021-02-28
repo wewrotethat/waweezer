@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waweezer_mobile/bloc/authentication/authentication_bloc.dart';
+import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_bloc.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_data_provider.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_event.dart';
@@ -8,6 +10,9 @@ import 'package:waweezer_mobile/bloc/song/song_bloc.dart';
 import 'package:waweezer_mobile/bloc/song/song_data_provider.dart';
 import 'package:waweezer_mobile/bloc/song/song_event.dart';
 import 'package:waweezer_mobile/bloc/song/song_repository.dart';
+import 'package:waweezer_mobile/bloc/user/user_bloc.dart';
+import 'package:waweezer_mobile/bloc/user/user_event.dart';
+import 'package:waweezer_mobile/bloc/user/user_state.dart';
 import 'package:waweezer_mobile/helpers/api_helper.dart';
 import 'package:waweezer_mobile/screens/playlist/create_playlist.dart';
 import 'package:waweezer_mobile/screens/song/create_song.dart';
@@ -45,6 +50,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         tabController.animateTo(index);
       });
     }
+    readCurrentItems();
+  }
+
+  void readCurrentItems() {
+    if (pageController.page == 0) {
+      BlocProvider.of<SongBloc>(context).add(
+        ReadSongsEvent(),
+      );
+    } else if (pageController.page == 1) {
+      BlocProvider.of<PlaylistBloc>(context).add(
+        ReadPlaylistsEvent(),
+      );
+    } else if (pageController.page == 3) {
+      BlocProvider.of<UserBloc>(context).add(
+        ReadUserEvent(),
+      );
+    }
   }
 
   @override
@@ -55,7 +77,40 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UserBloc, UserState>(
+          listener: (context, state) async {
+            if (state is UserOperationFailed) {
+              await showDialog(
+                context: context,
+                child: AlertDialog(
+                  actions: [
+                    FlatButton(
+                      child: Text("Retry"),
+                      onPressed: () {
+                        BlocProvider.of<UserBloc>(context)
+                          ..add(ReadUserEvent());
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                  content: Text(state.error),
+                ),
+              );
+            }
+          },
+        ),
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) async {
+            if (state is UserNotLoggedIn) {
+              await Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/login", (route) => false);
+            }
+          },
+        ),
+      ],
+      child: Scaffold(
         appBar: AppBar(
           title: Text("Waweezer"),
           actions: [
@@ -64,15 +119,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 Icons.refresh,
               ),
               onPressed: () async {
-                if (pageController.page == 0) {
-                  BlocProvider.of<SongBloc>(context).add(
-                    ReadSongsEvent(),
-                  );
-                } else if (pageController.page == 1) {
-                  BlocProvider.of<PlaylistBloc>(context).add(
-                    ReadPlaylistsEvent(),
-                  );
-                }
+                readCurrentItems();
               },
             )
           ],
@@ -100,6 +147,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 child: Icon(
                     tabController.index == 0 ? Icons.add : Icons.playlist_add),
               )
-            : Container());
+            : Container(),
+      ),
+    );
   }
 }

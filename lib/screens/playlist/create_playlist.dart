@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_bloc.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_event.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_state.dart';
-import 'package:waweezer_mobile/bloc/song/song_bloc.dart';
-import 'package:waweezer_mobile/bloc/song/song_state.dart';
 import 'package:waweezer_mobile/models/playlist.dart';
 import 'package:waweezer_mobile/models/song.dart';
 import 'package:flutter_tags/flutter_tags.dart';

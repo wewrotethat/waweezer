@@ -56,7 +56,7 @@ class Playlist {
 
   factory Playlist.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
+  
     return Playlist(
       id: map['id'],
       name: map['name'],
@@ -81,25 +81,25 @@ class Playlist {
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-
+  
     return o is Playlist &&
-        o.id == id &&
-        o.name == name &&
-        o.owner == owner &&
-        o.description == description &&
-        o.numberOfSaves == numberOfSaves &&
-        listEquals(o.songs, songs) &&
-        listEquals(o.tags, tags);
+      o.id == id &&
+      o.name == name &&
+      o.owner == owner &&
+      o.description == description &&
+      o.numberOfSaves == numberOfSaves &&
+      listEquals(o.songs, songs) &&
+      listEquals(o.tags, tags);
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        name.hashCode ^
-        owner.hashCode ^
-        description.hashCode ^
-        numberOfSaves.hashCode ^
-        songs.hashCode ^
-        tags.hashCode;
+      name.hashCode ^
+      owner.hashCode ^
+      description.hashCode ^
+      numberOfSaves.hashCode ^
+      songs.hashCode ^
+      tags.hashCode;
   }
 }

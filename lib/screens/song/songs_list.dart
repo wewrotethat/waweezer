@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waweezer_mobile/bloc/song/song_bloc.dart';
-import 'package:waweezer_mobile/bloc/song/song_event.dart';
 import 'package:waweezer_mobile/bloc/song/song_state.dart';
-import 'package:waweezer_mobile/screens/song/create_song.dart';
 import 'package:waweezer_mobile/widgets/song/song_list_item.dart';
 
 class SongsList extends StatefulWidget {
