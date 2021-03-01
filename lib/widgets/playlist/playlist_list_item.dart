@@ -4,6 +4,8 @@ import 'package:waweezer_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_bloc.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_event.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_bloc.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_event.dart';
 import 'package:waweezer_mobile/models/playlist.dart';
 import 'package:waweezer_mobile/screens/playlist/edit_playlist.dart';
 
@@ -59,6 +61,10 @@ class PlaylistListItem extends StatelessWidget {
                   );
                 }
               : null,
+          onDoubleTap: () {
+            BlocProvider.of<SavedPlaylistBloc>(context)
+                .add(AddSavedPlaylistEvent(playlist));
+          },
           child: Card(
             child: Column(
               children: [
