@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waweezer_mobile/bloc/admin/user_role/user_role_bloc.dart';
 import 'package:waweezer_mobile/bloc/admin/user_role/user_role_data_provider.dart';
-import 'package:waweezer_mobile/bloc/admin/user_role/user_role_event.dart';
 import 'package:waweezer_mobile/bloc/admin/user_role/user_role_repository.dart';
 import 'package:waweezer_mobile/bloc/admin/user_role/user_role_state.dart';
 import 'package:waweezer_mobile/helpers/api_helper.dart';

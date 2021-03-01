@@ -30,7 +30,7 @@ class HomePageView extends StatelessWidget {
           return SavedPlaylistsList();
         } else if (index == 3) {
           return UserProfile();
-        } else if (index == 4) {
+        } else {
           return UsersList();
         }
       },

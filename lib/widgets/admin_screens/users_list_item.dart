@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:waweezer_mobile/bloc/authentication/authentication_bloc.dart';
-import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/models/user.dart';
 import 'package:waweezer_mobile/screens/admin_screens/user_detail.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:waweezer_mobile/models/dto/sign_up_dto.dart';
 import 'package:waweezer_mobile/models/user.dart';
 
 abstract class UserRoleEvent {}

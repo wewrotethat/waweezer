@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_event.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
-import 'package:waweezer_mobile/bloc/user/user_bloc.dart';
-import 'package:waweezer_mobile/bloc/user/user_event.dart';
 import 'package:waweezer_mobile/models/user_credentials.dart';
 
 class Login extends StatefulWidget {

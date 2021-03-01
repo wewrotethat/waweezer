@@ -5,7 +5,6 @@ import 'package:waweezer_mobile/bloc/admin/user_role/user_role_repository.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_event.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_data_provider.dart';
-import 'package:waweezer_mobile/bloc/playlist/playlist_event.dart';
 import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_bloc.dart';
 import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_data_provider.dart';
 import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_event.dart';

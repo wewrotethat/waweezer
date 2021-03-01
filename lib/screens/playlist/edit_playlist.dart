@@ -6,8 +6,8 @@ import 'package:waweezer_mobile/bloc/playlist/playlist_state.dart';
 import 'package:waweezer_mobile/models/playlist.dart';
 import 'package:waweezer_mobile/models/song.dart';
 import 'package:flutter_tags/flutter_tags.dart';
+import 'package:waweezer_mobile/widgets/playlist/playlist_song_list_item.dart';
 import 'package:waweezer_mobile/widgets/playlist/selectable_song_list.dart';
-import 'package:waweezer_mobile/widgets/song/song_list_item.dart';
 
 class EditPlaylist extends StatefulWidget {
   final Playlist playlistToBeEdited;
@@ -89,7 +89,7 @@ class _EditPlaylistState extends State<EditPlaylist> {
                         child: ListView.builder(
                           itemCount: songs.length,
                           itemBuilder: (context, index) {
-                            return SongListItem(song: songs[index]);
+                            return PlaylistSongListItem(song: songs[index]);
                           },
                           scrollDirection: Axis.horizontal,
                         ),

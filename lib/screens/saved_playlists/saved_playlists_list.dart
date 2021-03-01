@@ -12,7 +12,7 @@ class SavedPlaylistsList extends StatefulWidget {
 class _SavedPlaylistsListState extends State<SavedPlaylistsList> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SavedPlaylistBloc, SavedPlaylistState>(
+    return BlocBuilder<SavedPlaylistBloc, SavedPlaylistState>(
       builder: (context, state) => Container(
         child: state is SavedPlaylistOperationSuccess
             ? ListView.builder(
@@ -36,9 +36,6 @@ class _SavedPlaylistsListState extends State<SavedPlaylistsList> {
                 ),
               ),
       ),
-      listener: (context, state) {
-        //TODO: show error dialog and reload on retry or exit
-      },
     );
   }
 }
