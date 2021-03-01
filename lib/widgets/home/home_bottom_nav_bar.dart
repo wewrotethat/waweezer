@@ -33,14 +33,14 @@ class HomeBottomNavBar extends StatelessWidget {
             Tab(
               icon: Icon(Icons.favorite),
             ),
+            Tab(
+              icon: Icon(Icons.person),
+            ),
             if (state is UserLoggedIn &&
                 state.user.role?.toLowerCase() == 'admin')
               Tab(
                 icon: Icon(Icons.people),
               ),
-            Tab(
-              icon: Icon(Icons.person),
-            ),
           ],
           controller: controller,
           labelStyle: TextStyle(fontSize: 10),

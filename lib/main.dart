@@ -6,6 +6,10 @@ import 'package:waweezer_mobile/bloc/authentication/authentication_event.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_data_provider.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_event.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_bloc.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_data_provider.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_event.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_repository.dart';
 import 'package:waweezer_mobile/bloc/user/user_bloc.dart';
 import 'package:waweezer_mobile/bloc/user/user_data_provider.dart';
 import 'package:waweezer_mobile/bloc/user/user_repository.dart';
@@ -44,6 +48,10 @@ void main() {
   final userRoleDataProvider = UserRoleDataProvider(apiHelper: APIHelper());
   final userRoleRepository =
       UserRoleRepository(userRoleDataProvider: userRoleDataProvider);
+  final savedPlaylistDataProvider =
+      SavedPlaylistDataProvider(apiHelper: apiHelper);
+  final savedPlaylistRepository = SavedPlaylistRepository(
+      savedPlaylistDataProvider: savedPlaylistDataProvider);
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider<SongBloc>(
@@ -71,6 +79,13 @@ void main() {
         ..add(
           ReadUsersEvent(),
         ),
+    ),
+    BlocProvider<SavedPlaylistBloc>(
+      create: (context) =>
+          SavedPlaylistBloc(savedPlaylistRepository: savedPlaylistRepository)
+            ..add(
+              ReadSavedPlaylistsEvent(),
+            ),
     ),
   ], child: App()));
 }

@@ -9,6 +9,8 @@ import 'package:waweezer_mobile/bloc/playlist/playlist_bloc.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_data_provider.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_event.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_repository.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_bloc.dart';
+import 'package:waweezer_mobile/bloc/saved_playlist/saved_playlist_event.dart';
 import 'package:waweezer_mobile/bloc/song/song_bloc.dart';
 import 'package:waweezer_mobile/bloc/song/song_data_provider.dart';
 import 'package:waweezer_mobile/bloc/song/song_event.dart';
@@ -68,11 +70,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       BlocProvider.of<PlaylistBloc>(context).add(
         ReadPlaylistsEvent(),
       );
-    } else if (pageController.page == 4) {
+    } else if (pageController.page == 2) {
+      BlocProvider.of<SavedPlaylistBloc>(context).add(
+        ReadSavedPlaylistsEvent(),
+      );
+    } else if (pageController.page == 3) {
       BlocProvider.of<UserBloc>(context).add(
         ReadUserEvent(),
       );
-    } else if (pageController.page == 3) {
+    } else if (pageController.page == 4) {
       var state = BlocProvider.of<AuthenticationBloc>(context).state;
       if (state is UserLoggedIn && state.user.role?.toLowerCase() == 'admin') {
         BlocProvider.of<UserRoleBloc>(context).add(

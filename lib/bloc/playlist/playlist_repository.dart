@@ -5,7 +5,7 @@ import 'package:waweezer_mobile/models/playlist.dart';
 class PlaylistRepository {
   final PlaylistDataProvider playlistDataProvider;
 
-  PlaylistRepository({@required this.playlistDataProvider});
+  PlaylistRepository({@required this.playlistDataProvider, PlaylistDataProvider savedPlaylistDataProvider});
 
   Future<Playlist> createPlaylist(Playlist playlist) async {
     return await playlistDataProvider.createPlaylist(playlist);
