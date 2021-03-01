@@ -29,15 +29,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       } catch (e) {
         yield UserOperationFailed(e.toString());
       }
-    } else if (event is ReadUsersEvent) {
-      yield UserOperationInProgress();
-      try {
-        var users = await userRepository.readUsers();
-        yield MultipleUsersOperationSuccess(users);
-      } catch (e) {
-        yield UserOperationFailed(e.toString());
-      }
-    } else if (event is ReadUserEvent) {
+    }  else if (event is ReadUserEvent) {
       yield UserOperationInProgress();
       try {
         var user = await userRepository.readUser();

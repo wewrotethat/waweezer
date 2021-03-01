@@ -2,16 +2,21 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waweezer_mobile/helpers/exceptions/network_exceptions.dart';
 
 class APIHelper {
-  Future<dynamic> get(String url, {String token = ''}) async {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  Future<dynamic> get(
+    String url,
+  ) async {
+    SharedPreferences prefs = await _prefs;
     var responseJson;
     try {
       final response = await http.get(
         url,
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer ${prefs.getString('token')}',
         },
       );
       responseJson = _returnResponse(response);
@@ -21,8 +26,11 @@ class APIHelper {
     return responseJson;
   }
 
-  Future<dynamic> post(String url, Map<String, dynamic> body,
-      {String token = ''}) async {
+  Future<dynamic> post(
+    String url,
+    Map<String, dynamic> body,
+  ) async {
+    SharedPreferences prefs = await _prefs;
     // print(jsonEncode(body));
     var responseJson;
     try {
@@ -31,7 +39,7 @@ class APIHelper {
         body: json.encode(body),
         headers: <String, String>{
           'content-type': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer ${prefs.getString('token')}',
         },
       );
       responseJson = _returnResponse(response);
@@ -42,8 +50,11 @@ class APIHelper {
     return responseJson;
   }
 
-  Future<dynamic> put(String url, Map<String, dynamic> body,
-      {String token = ''}) async {
+  Future<dynamic> put(
+    String url,
+    Map<String, dynamic> body,
+  ) async {
+    SharedPreferences prefs = await _prefs;
     var responseJson;
     try {
       final response = await http.put(
@@ -51,7 +62,7 @@ class APIHelper {
         body: jsonEncode(body),
         headers: <String, String>{
           'content-type': 'application/json',
-          'Authorization': 'Bearer $token'
+          'Authorization': 'Bearer ${prefs.getString('token')}'
         },
       );
       responseJson = _returnResponse(response);
@@ -61,8 +72,11 @@ class APIHelper {
     return responseJson;
   }
 
-  Future<dynamic> patch(String url, Map<String, dynamic> body,
-      {String token = ''}) async {
+  Future<dynamic> patch(
+    String url,
+    Map<String, dynamic> body,
+  ) async {
+    SharedPreferences prefs = await _prefs;
     var responseJson;
     try {
       final response = await http.patch(
@@ -70,7 +84,7 @@ class APIHelper {
         body: jsonEncode(body),
         headers: <String, String>{
           'content-type': 'application/json',
-          'Authorization': 'Bearer $token'
+          'Authorization': 'Bearer ${prefs.getString('token')}'
         },
       );
       responseJson = _returnResponse(response);
@@ -80,13 +94,16 @@ class APIHelper {
     return responseJson;
   }
 
-  Future<dynamic> delete(String url, {String token = ''}) async {
+  Future<dynamic> delete(
+    String url,
+  ) async {
+    SharedPreferences prefs = await _prefs;
     var responseJson;
     try {
       final response = await http.delete(
         url,
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer ${prefs.getString('token')}',
         },
       );
       responseJson = _returnResponse(response);

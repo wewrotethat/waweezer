@@ -12,9 +12,6 @@ class UserRepository {
     return await userDataProvider.createUser(user);
   }
 
-  Future<List<User>> readUsers() async {
-    return await userDataProvider.readUsers();
-  }
 
   Future<User> readUser() async {
     var user = await userDataProvider.readUser();

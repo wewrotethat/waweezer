@@ -21,7 +21,7 @@ class _SignUpState extends State<SignUp> {
   final ageController = TextEditingController();
   final emailController = TextEditingController();
 
-  final  passwordController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +113,9 @@ class _SignUpState extends State<SignUp> {
         ),
         listener: (context, state) {
           if (state is SingleUserOperationSuccess) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content:
+                    Text('Sign up successful. Please log in to use the app.')));
             Navigator.of(context).pushNamed("/login");
           } else if (state is UserOperationFailed) {
             Scaffold.of(context)

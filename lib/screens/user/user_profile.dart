@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_event.dart';
+import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/bloc/user/user_bloc.dart';
 import 'package:waweezer_mobile/bloc/user/user_event.dart';
 import 'package:waweezer_mobile/bloc/user/user_state.dart';
@@ -93,38 +94,50 @@ class _UserProfileState extends State<UserProfile> {
                           : null,
                       child: Text("Log out"),
                     ),
-                    FlatButton(
-                      onPressed: !(state is UserOperationInProgress)
-                          ? () async {
-                              await showDialog(
-                                  context: context,
-                                  child: AlertDialog(
-                                    content: Text("Are you sure?"),
-                                    actions: [
-                                      FlatButton(
-                                          onPressed: () {
-                                            BlocProvider.of<UserBloc>(context)
-                                                .add(
-                                              DeleteUserEvent(),
-                                            );
-                                            BlocProvider.of<AuthenticationBloc>(
-                                                    context)
-                                                .add(
-                                              LogoutEvent(),
-                                            );
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text("Yes")),
-                                      FlatButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text("No"))
-                                    ],
-                                  ));
-                            }
-                          : null,
-                      child: Text("Delete Account"),
+                    BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                      builder: (context, state) {
+                        if (state is UserLoggedIn &&
+                            state.user.role?.toLowerCase() != 'admin') {
+                          return FlatButton(
+                            onPressed: !(state is UserOperationInProgress)
+                                ? () async {
+                                    await showDialog(
+                                      context: context,
+                                      child: AlertDialog(
+                                        content: Text("Are you sure?"),
+                                        actions: [
+                                          FlatButton(
+                                              onPressed: () {
+                                                BlocProvider.of<UserBloc>(
+                                                        context)
+                                                    .add(
+                                                  DeleteUserEvent(),
+                                                );
+                                                BlocProvider.of<
+                                                            AuthenticationBloc>(
+                                                        context)
+                                                    .add(
+                                                  LogoutEvent(),
+                                                );
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Yes")),
+                                          FlatButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text("No"),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                : null,
+                            child: Text("Delete Account"),
+                          );
+                        }
+                        return Container();
+                      },
                     )
                   ],
                 ),

@@ -10,15 +10,7 @@ class CreateUserEvent extends UserEvent {
   CreateUserEvent(this.user);
 }
 
-class ReadUsersEvent extends UserEvent {}
-
 class ReadUserEvent extends UserEvent {}
-
-class ReadUserByIDEvent extends UserEvent {
-  final String userId;
-
-  ReadUserByIDEvent(this.userId);
-}
 
 class UpdateUserEvent extends UserEvent {
   final User user;
@@ -28,20 +20,4 @@ class UpdateUserEvent extends UserEvent {
   });
 }
 
-class UpdateUserByIDEvent extends UserEvent {
-  final String userId;
-  final User user;
-
-  UpdateUserByIDEvent({
-    @required this.userId,
-    @required this.user,
-  });
-}
-
 class DeleteUserEvent extends UserEvent {}
-
-class DeleteUserByIDEvent extends UserEvent {
-  final String userId;
-
-  DeleteUserByIDEvent(this.userId);
-}

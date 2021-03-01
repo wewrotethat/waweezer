@@ -10,12 +10,6 @@ class SingleUserOperationSuccess extends UserState {
   SingleUserOperationSuccess(this.user);
 }
 
-class MultipleUsersOperationSuccess extends UserState {
-  final List<User> users;
-
-  MultipleUsersOperationSuccess(this.users);
-}
-
 class UserOperationInProgress extends UserState {}
 
 class UserOperationFailed extends UserState {

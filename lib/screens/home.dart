@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waweezer_mobile/bloc/admin/user_role/user_role_bloc.dart';
+import 'package:waweezer_mobile/bloc/admin/user_role/user_role_event.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_bloc.dart';
 import 'package:waweezer_mobile/bloc/authentication/authentication_state.dart';
 import 'package:waweezer_mobile/bloc/playlist/playlist_bloc.dart';
@@ -20,6 +23,9 @@ import 'package:waweezer_mobile/widgets/home/home_bottom_nav_bar.dart';
 import 'package:waweezer_mobile/widgets/home/home_page_view.dart';
 
 class Home extends StatefulWidget {
+  final bool isAdmin;
+
+  const Home({Key key, @required this.isAdmin}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -62,16 +68,27 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       BlocProvider.of<PlaylistBloc>(context).add(
         ReadPlaylistsEvent(),
       );
-    } else if (pageController.page == 3) {
+    } else if (pageController.page == 4) {
       BlocProvider.of<UserBloc>(context).add(
         ReadUserEvent(),
       );
+    } else if (pageController.page == 3) {
+      var state = BlocProvider.of<AuthenticationBloc>(context).state;
+      if (state is UserLoggedIn && state.user.role?.toLowerCase() == 'admin') {
+        BlocProvider.of<UserRoleBloc>(context).add(
+          ReadUsersEvent(),
+        );
+      }
     }
   }
 
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this, initialIndex: 1);
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      readCurrentItems();
+    });
+    tabController = TabController(
+        length: widget.isAdmin ? 5 : 4, vsync: this, initialIndex: 1);
     super.initState();
   }
 

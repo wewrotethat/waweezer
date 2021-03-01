@@ -9,7 +9,7 @@ class AuthenticationBloc
   final AuthenticationRepository authenticationRepository;
 
   AuthenticationBloc({@required this.authenticationRepository})
-      : super(AuthenticationProcessInProgress());
+      : super(AuthenticationStateInitial());
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -21,7 +21,8 @@ class AuthenticationBloc
         if (!loggedIn) {
           throw Exception("Login Failed");
         }
-        yield UserLoggedIn();
+        var user = await authenticationRepository.getUser();
+        yield UserLoggedIn(user);
       } catch (e) {
         yield AuthenticationError(e.toString());
       }
@@ -43,7 +44,8 @@ class AuthenticationBloc
         if (!loggedIn) {
           throw UserNotLoggedIn();
         }
-        yield UserLoggedIn();
+        var user = await authenticationRepository.getUser();
+        yield UserLoggedIn(user);
       } catch (e) {
         yield AuthenticationError(e.toString());
       }
